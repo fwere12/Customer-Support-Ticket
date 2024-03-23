@@ -19,3 +19,4 @@ df.isnull().sum()
 
 #Checking on the duplicates
 df.duplicated().sum()
+
