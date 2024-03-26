@@ -49,3 +49,22 @@ plt.figure(figsize = (10,5))
 plt.pie(chart_age, labels = chart_age.index, autopct='%.0f%%')
 plt.title('Distribution of customer age', loc = 'left', pad = 10, size = 15)
 plt.show()
+
+#Distribution of customer gender
+chart_gen = df_ticket['Customer Gender'].value_counts()
+plt.figure(figsize=(10,5))
+plt.pie(chart_gen, labels= chart_gen.index, autopct= '%.0f%%')
+plt.title('Distribution of Customer Gender', loc = 'left', pad = 10, size = 15)
+plt.show()
+
+#Distribution of product
+unique = len(df_ticket['Product Purchased'].unique())
+print(f' Total of products was purchased: {unique}')
+
+#Plot chart
+import seaborn as sns
+
+plt.figure(figsize = (15,10))
+sns.histplot(data = df_ticket, y = 'Product Purchased', stat = 'percent', shrink = 0.5)
+plt.title('Distribution of product', loc = 'center', pad = 10, size = 15)
+plt.show()
