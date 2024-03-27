@@ -27,3 +27,9 @@ chart_chan = df_ticket['Ticket Channel'].value_counts()
 plt.pie(chart_chan, labels = chart_chan.index, autopct = '%.2f')
 plt.title('Distribution of ticket channel', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Distribution of ticket priority
+chart_prio = df_ticket['Ticket Priority'].value_counts()
+plt.pie(chart_prio, labels = chart_prio.index, autopct = '%.2f')
+plt.title('Distribution of ticket priority', loc = 'center', pad = 10, size = 15)
+plt.show()
