@@ -33,3 +33,18 @@ chart_prio = df_ticket['Ticket Priority'].value_counts()
 plt.pie(chart_prio, labels = chart_prio.index, autopct = '%.2f')
 plt.title('Distribution of ticket priority', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Chance of response
+chance = []
+for i in df_ticket['First Response Time']:
+    if i == 'No response':
+        chance.append('No')
+    else:
+        chance.append('Yes')
+df_ticket['Response'] = chance
+
+#Plotting the chart
+chart_res = df_ticket['Response'].value_counts()
+plt.pie(chart_res, labels = chart_res.index, autopct = '%.2f')
+plt.title('Chance of response', loc = 'center', pad = 10, size = 15)
+plt.show()
