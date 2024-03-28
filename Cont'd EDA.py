@@ -48,3 +48,17 @@ chart_res = df_ticket['Response'].value_counts()
 plt.pie(chart_res, labels = chart_res.index, autopct = '%.2f')
 plt.title('Chance of response', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Chance of resolution
+chance_r = []
+for i in df_ticket['Time to Resolution']:
+    if i == 'No resolution':
+        chance_r.append('No')
+    else:
+        chance_r.append('Yes')
+df_ticket['Resolution_bin'] = chance_r
+#Plot
+chart_re = df_ticket['Resolution_bin'].value_counts()
+plt.pie(chart_re, labels = chart_re.index, autopct = '%.2f')
+plt.title('Chance of resolution', loc = 'center', pad = 10, size = 15)
+plt.show()
