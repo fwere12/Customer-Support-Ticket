@@ -62,3 +62,13 @@ chart_re = df_ticket['Resolution_bin'].value_counts()
 plt.pie(chart_re, labels = chart_re.index, autopct = '%.2f')
 plt.title('Chance of resolution', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Distribution of customer satisfaction rating
+#Convert 'Customer Satisfaction Rating' columns into object type
+df_ticket['Customer Satisfaction Rating'] = df_ticket['Customer Satisfaction Rating'].astype('object')
+df_ticket['Customer Satisfaction Rating'].info()
+#Plot
+chart_satis = df_ticket['Customer Satisfaction Rating'].value_counts()
+plt.pie(chart_satis, labels = chart_satis.index, autopct = '%.2f')
+plt.title('Distribution of customer satisfaction', loc = 'center', pad = 10, size = 15)
+plt.show()
