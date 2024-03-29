@@ -28,3 +28,25 @@ plt.figure(figsize = (15,6))
 sns.histplot(df_ticket, hue = 'Ticket Channel', x = 'Ticket Priority',multiple = 'dodge', shrink = 0.8)
 plt.title('Distribution of ticket channel by priority', loc = 'center', pad = 10, size = 20)
 plt.show()
+
+#Ticket status
+ticket_st = df_ticket['Ticket Status'].unique()
+print(f'Ticket status: {list(ticket_st)}')
+
+#plot
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Check the column names in your DataFrame
+print(df_ticket.columns)
+
+# Plot Ticket status and response, Ticket status and resolution
+try:
+    fig, axes = plt.subplots(1, 2, figsize=(20, 6))
+    sns.histplot(df_ticket, x='Ticket Status', hue='Ticket Priority', multiple='dodge', shrink=0.5, ax=axes[0])
+    sns.histplot(df_ticket, x='Ticket Status', hue='Resolution_bin', multiple='dodge', shrink=0.5, ax=axes[1])
+    axes[0].set_title('Ticket status and ticket priority', loc='center', pad=10, size=15)
+    axes[1].set_title('Ticket status and resolution', loc='center', pad=10, size=15)
+    plt.show()
+except ValueError as e:
+    print(f"Error plotting: {e}")
