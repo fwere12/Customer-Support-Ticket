@@ -40,6 +40,14 @@ import seaborn as sns
 # Check the column names in your DataFrame
 print(df_ticket.columns)
 
+chance_r = []
+for i in df_ticket['Time to Resolution']:
+    if i == 'No resolution':
+        chance_r.append('No')
+    else:
+        chance_r.append('Yes')
+df_ticket['Resolution_bin'] = chance_r
+
 # Plot Ticket status and response, Ticket status and resolution
 try:
     fig, axes = plt.subplots(1, 2, figsize=(20, 6))
@@ -62,3 +70,4 @@ plt.figure(figsize = (8,6))
 sns.barplot(priority, x = 'Ticket Priority', y = 'Percent')
 plt.title('Chance of solution per ticket priority', loc = 'center', pad = 10, size = 15)
 plt.show()
+
