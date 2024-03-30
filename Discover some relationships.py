@@ -76,4 +76,11 @@ rating = pd.pivot_table(df_ticket, index = ['Customer Satisfaction Rating'], val
 rating = rating.rename(columns = {'Customer Name': 'Resolution'})
 rating
 
-#
+#Create new dataframe
+df_resolution = df_ticket[df_ticket['Resolution_bin'] =='Yes']
+df_resolution.head()
+#Distribution of ticket priority in case resolution
+chart_reprio = df_resolution['Ticket Priority'].value_counts()
+plt.pie(chart_reprio, labels = chart_reprio.index, autopct = '%.2f')
+plt.title('Distribution of ticket priority in case resolution', loc = 'center', pad = 10, size = 15)
+plt.show()
