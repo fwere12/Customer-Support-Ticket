@@ -71,3 +71,9 @@ sns.barplot(priority, x = 'Ticket Priority', y = 'Percent')
 plt.title('Chance of solution per ticket priority', loc = 'center', pad = 10, size = 15)
 plt.show()
 
+#Customer satistaction rating
+rating = pd.pivot_table(df_ticket, index = ['Customer Satisfaction Rating'], values= ['Customer Name'], columns = ['Resolution_bin'], aggfunc = len).reset_index()
+rating = rating.rename(columns = {'Customer Name': 'Resolution'})
+rating
+
+#
