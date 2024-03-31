@@ -111,3 +111,10 @@ axes[1].tick_params(labelrotation = 90)
 axes[0].set_title('Distribution of ticket type', loc = 'center', pad = 10, size = 15)
 axes[1].set_title('Customer satisfaction rating per ticket type', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Conclusion:
+#The priority ticket may reflect the severity of problem customer met and that's why they need supporters.
+#All four types of priority didn't have too much different in the number of customers rating per type of score.
+#However, when using this dataset for my project, I don't know whether the priority were assigned by customers who sent the ticket or staff in support ticket department who read the description of customers.
+Nevermind, support ticket department should have more attention in quality service in complex cases and have a right attitude when suporting all problem of purchased customer.
+#Beside, support ticket department should pay more attention to the quality service in some ticket subjects were rated bad by customer such as delivery problem or network problem.
