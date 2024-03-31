@@ -101,3 +101,13 @@ sns.histplot(df_resolution['Ticket Priority'], shrink = 0.5, ax = axes[1])
 axes[0].set_title('Customer satisfaction rating per ticket priority', loc = 'center', pad = 10, size = 15)
 axes[1].set_title('Distribution of ticket priority in case resolution', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+#Customer satisfaction rating and ticket type
+fig, axes = plt.subplots(1,2, figsize = (15,6))
+sns.histplot(df_resolution['Ticket Type'], shrink = 0.8, ax = axes[0])
+sns.histplot(hue = df_resolution['Type of rating'], x = df_resolution['Ticket Type'], multiple = 'dodge', shrink = 0.8, stat = 'percent', ax = axes[1])
+axes[0].tick_params(labelrotation = 90)
+axes[1].tick_params(labelrotation = 90)
+axes[0].set_title('Distribution of ticket type', loc = 'center', pad = 10, size = 15)
+axes[1].set_title('Customer satisfaction rating per ticket type', loc = 'center', pad = 10, size = 15)
+plt.show()
