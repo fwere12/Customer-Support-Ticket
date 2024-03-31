@@ -84,3 +84,20 @@ chart_reprio = df_resolution['Ticket Priority'].value_counts()
 plt.pie(chart_reprio, labels = chart_reprio.index, autopct = '%.2f')
 plt.title('Distribution of ticket priority in case resolution', loc = 'center', pad = 10, size = 15)
 plt.show()
+
+rating = []
+for i in df_resolution['Customer Satisfaction Rating']:
+    if i<=2:
+        rating.append('Low')
+    elif i==3:
+        rating.append('Medium')
+    else:
+        rating.append('High')
+df_resolution['Type of rating'] = rating
+#Customer satisfaction rating and ticket priority
+fig, axes = plt.subplots(1,2, figsize = (20,6))
+sns.histplot(df_resolution, x = 'Ticket Priority', hue = 'Type of rating' ,multiple = 'dodge', shrink = 0.5, ax = axes[0])
+sns.histplot(df_resolution['Ticket Priority'], shrink = 0.5, ax = axes[1])
+axes[0].set_title('Customer satisfaction rating per ticket priority', loc = 'center', pad = 10, size = 15)
+axes[1].set_title('Distribution of ticket priority in case resolution', loc = 'center', pad = 10, size = 15)
+plt.show()
