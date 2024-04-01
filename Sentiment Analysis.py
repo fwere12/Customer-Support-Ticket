@@ -39,6 +39,15 @@ df_sentiment.head()
 #We are gonna delete all the character as they don't have any effect on processing.
 #Cleaning text
 import re
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import nltk
+from nltk.corpus import stopwords
+from collections import Counter
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+
+# Function to clean text
 def clean_text(text):
     text = str(text).lower()
     text = re.sub('[({})?/$#|=]', '', text)
@@ -54,22 +63,40 @@ def clean_text(text):
     text = re.sub('\w*\d\w*', '', text)
     return text
 
-#We apply texts cleaned in 'Ticket Description' column
-df_sentiment['Ticket Description'] = df_sentiment['Ticket Description'].apply(lambda x:clean_text(x))
-df_sentiment['Resolution'] = df_sentiment['Resolution'].apply(lambda x:clean_text(x))
-
-#Importing nltk
-import nltk
+# Download stopwords
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from collections import Counter
 #import WordCloud
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
-#Add useless words to stopwords
+# Clean 'Ticket Description' and 'Resolution' columns
+df_sentiment['Ticket Description'] = df_sentiment['Ticket Description'].apply(clean_text)
+df_sentiment['Resolution'] = df_sentiment['Resolution'].apply(clean_text)
+
+# Define additional stopwords
 new_stopwords = ['i\'m', 'i\'ve', 'would', 'could', '-d', '-i\'m', '[--]:', 'not', 'mm', 'ca', 'cs', 'hi']
-stpwrd = nltk.corpus.stopwords.words('english')
-stpwrd.extend(new_stopwords)
-#Write a funtion for removing stopwords
-def remove_stopword(x):
-    return [y for y in x if y not in stpwrd]
+stopwords_list = stopwords.words('english') + new_stopwords
+
+# Function to remove stopwords
+def remove_stopwords(tokens):
+    return [token for token in tokens if token not in stopwords_list]
+
+# Apply tokenization and remove stopwords
+df_sentiment['temp1'] = df_sentiment['Ticket Description'].apply(lambda x: remove_stopwords(x.split()))
+df_sentiment_resolution = df_sentiment[df_sentiment['Resolution_bin'] == 'Yes']
+df_sentiment_resolution['temp2'] = df_sentiment_resolution['Resolution'].apply(lambda x: remove_stopwords(x.split()))
+
+# Plot common words in 'Ticket Description'
+top_words = Counter([word for sublist in df_sentiment['temp1'] for word in sublist])
+temp_df = pd.DataFrame(top_words.most_common(20), columns=['Common_words', 'count'])
+plt.figure(figsize=(15, 6))
+sns.barplot(data=temp_df, y='Common_words', x='count')
+
+# Plot common words in 'Resolution'
+top_words_resolution = Counter([word for sublist in df_sentiment_resolution['temp2'] for word in sublist])
+temp_df_resolution = pd.DataFrame(top_words_resolution.most_common(20), columns=['Common_words', 'count'])
+plt.figure(figsize=(15, 6))
+sns.barplot(data=temp_df_resolution, y='Common_words', x='count')
+
+plt.show()
