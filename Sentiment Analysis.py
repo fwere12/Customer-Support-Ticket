@@ -35,3 +35,25 @@ df_ticket['Resolution_bin'] = chance_r
 #a) Creating a new dataframe
 df_sentiment = df_ticket[['Ticket Description', 'Resolution', 'Ticket Priority', 'Ticket Subject', 'Resolution_bin']]
 df_sentiment.head()
+
+#We are gonna delete all the character as they don't have any effect on processing.
+#Cleaning text
+import re
+def clean_text(text):
+    text = str(text).lower()
+    text = re.sub('[({})?/$#|=]', '', text)
+    text = re.sub('\n', '', text)
+    text = re.sub('[.]', ' ', text)
+    text = re.sub('[->]', ' ', text)
+    text = re.sub('[:]', ' ', text)
+    text = re.sub('[_]', ' ', text)
+    text = re.sub('[,]', ' ', text)
+    text = re.sub('[-]', ' ', text)
+    text = re.sub('[\']', ' ', text)
+    text = re.sub('<.*?>+', '', text)
+    text = re.sub('\w*\d\w*', '', text)
+    return text
+
+#We apply texts cleaned in 'Ticket Description' column
+df_sentiment['Ticket Description'] = df_sentiment['Ticket Description'].apply(lambda x:clean_text(x))
+df_sentiment['Resolution'] = df_sentiment['Resolution'].apply(lambda x:clean_text(x))
