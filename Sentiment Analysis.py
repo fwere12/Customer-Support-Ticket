@@ -100,3 +100,36 @@ plt.figure(figsize=(15, 6))
 sns.barplot(data=temp_df_resolution, y='Common_words', x='count')
 
 plt.show()
+
+#Unique words in description
+raw_text = [word for word_list in df_sentiment['temp1'] for word in word_list]
+#Unique words funtion
+def unique_word(sentiment, numwords, raw_words):
+    allother = []
+    for item in df_sentiment[df_sentiment.Resolution_bin != sentiment]['temp1']:
+        for word in item:
+            allother .append(word)
+    allother  = list(set(allother ))
+    
+    specific = [x for x in raw_text if x not in allother]
+    
+    mycounter = Counter()
+    
+    for item in df_sentiment[df_sentiment.Resolution_bin == sentiment]['temp1']:
+        for word in item:
+            mycounter[word] += 1
+    keep = list(specific)
+    
+    for word in list(mycounter):
+        if word not in keep:
+            del mycounter[word]
+    
+    Unique_words = pd.DataFrame(mycounter.most_common(numwords), columns = ['words','count'])
+    
+    return Unique_words
+
+resolve = unique_word('Yes', 20, raw_text)
+resolve.style.background_gradient(cmap='Greens')
+
+none = unique_word('No', 20, raw_text)
+none.style.background_gradient(cmap='Blues')
