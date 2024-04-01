@@ -57,3 +57,19 @@ def clean_text(text):
 #We apply texts cleaned in 'Ticket Description' column
 df_sentiment['Ticket Description'] = df_sentiment['Ticket Description'].apply(lambda x:clean_text(x))
 df_sentiment['Resolution'] = df_sentiment['Resolution'].apply(lambda x:clean_text(x))
+
+#Importing nltk
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from collections import Counter
+#import WordCloud
+from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
+
+#Add useless words to stopwords
+new_stopwords = ['i\'m', 'i\'ve', 'would', 'could', '-d', '-i\'m', '[--]:', 'not', 'mm', 'ca', 'cs', 'hi']
+stpwrd = nltk.corpus.stopwords.words('english')
+stpwrd.extend(new_stopwords)
+#Write a funtion for removing stopwords
+def remove_stopword(x):
+    return [y for y in x if y not in stpwrd]
