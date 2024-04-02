@@ -25,3 +25,5 @@ def plot_wordcloud(text, mask=None, max_words=200, max_font_size=30, figure_size
                                   'verticalalignment': 'bottom'})
     plt.axis('off');
     plt.tight_layout()
+
+plot_wordcloud(df_sentiment[df_sentiment['Resolution_bin'] == 'Yes']['Ticket Description'],mask=None,color='white',max_font_size=50,title_size=30,title="WordCloud of Ticket resolved")
